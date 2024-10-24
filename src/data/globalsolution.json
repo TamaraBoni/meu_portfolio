@@ -1,0 +1,5 @@
+[
+  { "rm": 554900, "nome": "Anderson", "nota": 75, "materia": "front-end" },
+  { "rm": 110012, "nome": "Tamara", "nota": 75, "materia": "front-end" },
+  { "rm": 110011, "nome": "Vinicius", "nota": 75, "materia": "front-end" }
+]
