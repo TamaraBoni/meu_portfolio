@@ -14,7 +14,10 @@ export default function Menu() {
           <Link href="/checkpoint">checkpoint</Link>
         </li>
         <li>
-          <Link href="globalsolution>">globalsolution</Link>
+          <Link href="globalsolution">globalsolution</Link>
+        </li>
+        <li>
+          <Link href="alunos">alunos</Link>
         </li>
       </ul>
     </nav>
