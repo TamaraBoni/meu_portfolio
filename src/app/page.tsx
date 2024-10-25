@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -8,18 +8,18 @@ const Home = () => {
         <h2 className="text-xl">Avaliações</h2>
         <ul>
           <li>
-            <Link href="/checkpoints">
-              <a className="text-blue-500">CheckPoints</a>
+            <Link href="/checkpoints" className="text-blue-500">
+              CheckPoints
             </Link>
           </li>
           <li>
-            <Link href="/globalsolution">
-              <a className="text-blue-500">GlobalSolution</a>
+            <Link href="/globalsolution" className="text-blue-500">
+              GlobalSolution
             </Link>
           </li>
           <li>
-            <Link href="/challengersprints">
-              <a className="text-blue-500">Challenger Sprints</a>
+            <Link href="/challengersprints" className="text-blue-500">
+              Challenger Sprints
             </Link>
           </li>
         </ul>
