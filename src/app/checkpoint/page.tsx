@@ -54,7 +54,7 @@ export default function Checkpoints() {
               <td>{checkpoint.materia}</td>
               <td>{checkpoint.checkpoint}</td>
               <td>
-                <Link href={`/checkpoints/${checkpoint.rm}`}>Editar</Link> |
+                <Link href={`/checkpoint/${checkpoint.rm}`}>Editar</Link> |
                 <Link href="#" onClick={() => handleDelete(checkpoint.rm)}>
                   Excluir
                 </Link>
