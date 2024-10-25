@@ -3,5 +3,5 @@ export type TipoCheckpoints = {
   nome: string;
   nota: number;
   materia: string;
-  checkpoint: number;
+  checkpoint: string;
 };
