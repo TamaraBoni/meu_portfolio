@@ -8,16 +8,16 @@ export default function Menu() {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/Challengersprints">Challengersprints</Link>
+          <Link href="/challengersprints">Challengersprints</Link>
         </li>
         <li>
           <Link href="/checkpoint">checkpoint</Link>
         </li>
         <li>
-          <Link href="globalsolution">globalsolution</Link>
+          <Link href="/globalsolution">globalsolution</Link>
         </li>
         <li>
-          <Link href="alunos">alunos</Link>
+          <Link href="/alunos">alunos</Link>
         </li>
       </ul>
     </nav>
