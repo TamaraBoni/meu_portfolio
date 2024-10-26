@@ -13,3 +13,15 @@ export type TipoChallengersSprints = {
   materia: string;
   sprint: number;
 };
+export type TipoGlobalSolution = {
+  rm: number;
+  nome: string;
+  nota: number;
+  materia: string;
+};
+export type TipoAlunos = {
+  rm: number;
+  nome: string;
+  idade: number;
+  curso: string;
+};
