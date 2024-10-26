@@ -1,34 +1,70 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+"use client";
+import { TipoGlobalSolution } from "@/types/types";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const GlobalSolutionDetail = () => {
-  const router = useRouter();
-  const { id } = router.query; // Pega o ID da URL
-  const [globalSolution, setGlobalSolution] = useState(null);
-
-  const fetchGlobalSolution = async (id) => {
-    const response = await fetch(`/api/globalsolution?id=${id}`);
-    const data = await response.json();
-    setGlobalSolution(data);
-  };
+export default function EditarGlobalSolution({ params }: { params: { rm: number } }) {
+  const navigate = useRouter();
+  const [solution, setSolution] = useState<TipoGlobalSolution>({
+    rm: 0,
+    nome: "",
+    nota: 0,
+    materia: "",
+  });
 
   useEffect(() => {
-    if (id) {
-      fetchGlobalSolution(id);
-    }
-  }, [id]);
+    const chamadaDaApi = async () => {
+      const response = await fetch(`http://localhost:3000/api/globalsolution-route/${params.rm}`);
+      const dados = await response.json();
+      setSolution(dados);
+    };
+    chamadaDaApi();
+  }, [params.rm]);
 
-  if (!globalSolution) {
-    return <div>Carregando...</div>; // Estado de carregamento
-  }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSolution({ ...solution, [name]: value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/globalsolution-route/${params.rm}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(solution),
+      });
+
+      if (response.ok) {
+        alert("Global Solution alterado com sucesso");
+        navigate.push("/globalsolution");
+      }
+    } catch (error) {
+      console.error("Falha ao realizar a alteração: ", error);
+    }
+  };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold">{globalSolution.titulo}</h1>
-      <p>Nota: {globalSolution.nota}</p>
-      <p>Descrição: {globalSolution.descricao}</p>
+    <div>
+      <h1>Editar Global Solution</h1>
+      <form onSubmit={handleSubmit} className="form">
+        <div>
+          <label>Nome</label>
+          <input type="text" name="nome" value={solution.nome} onChange={handleChange} required />
+        </div>
+        <div>
+          <label>Nota</label>
+          <input type="number" name="nota" value={solution.nota} onChange={handleChange} required min={0} max={100} />
+        </div>
+        <div>
+          <label>Matéria</label>
+          <input type="text" name="materia" value={solution.materia} onChange={handleChange} required />
+        </div>
+        <button type="submit">Alterar</button>
+      </form>
     </div>
   );
-};
-
-export default GlobalSolutionDetail;
+}
