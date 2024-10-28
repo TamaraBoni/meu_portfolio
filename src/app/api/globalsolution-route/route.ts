@@ -13,12 +13,12 @@ export async function POST(request: Request) {
   const solutions: TipoGlobalSolution[] = JSON.parse(file);
 
   const newSolution: TipoGlobalSolution = await request.json();
-  const novoId = solutions[solutions.length - 1]?.rm + 1 || 1;
-  newSolution.rm = novoId;
 
+  const novoId = solutions.length > 0 ? Math.max(...solutions.map((solution) => solution.id)) + 1 : 1; // Gera o ID baseado no maior existente
+  newSolution.id = novoId;
   solutions.push(newSolution);
 
-  const fileUpdate = JSON.stringify(solutions);
+  const fileUpdate = JSON.stringify(solutions, null, 2);
   await fs.writeFile(process.cwd() + "/src/data/globalsolution.json", fileUpdate);
 
   return NextResponse.json(newSolution, { status: 201 });

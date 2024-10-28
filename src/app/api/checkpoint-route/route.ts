@@ -4,7 +4,7 @@ import { TipoCheckpoints } from "@/types/types";
 
 export async function GET() {
   const file = await fs.readFile(process.cwd() + "/src/data/checkpoints.json", "utf-8");
-  const data = JSON.parse(file);
+  const data: TipoCheckpoints[] = JSON.parse(file);
   return NextResponse.json(data);
 }
 
@@ -12,14 +12,15 @@ export async function POST(request: Request) {
   const file = await fs.readFile(process.cwd() + "/src/data/checkpoints.json", "utf-8");
   const checkpoints: TipoCheckpoints[] = JSON.parse(file);
 
-  const checkpoint: TipoCheckpoints = await request.json();
-  const novoId = checkpoints[checkpoints.length - 1]?.rm + 1 || 1;
-  checkpoint.rm = novoId;
+  const newCheckpoint: TipoCheckpoints = await request.json();
 
-  checkpoints.push(checkpoint);
+  const novoId = checkpoints.length > 0 ? Math.max(...checkpoints.map((checkpoint) => checkpoint.id)) + 1 : 1;
+  newCheckpoint.id = novoId;
 
-  const fileUpdate = JSON.stringify(checkpoints);
+  checkpoints.push(newCheckpoint);
+
+  const fileUpdate = JSON.stringify(checkpoints, null, 2);
   await fs.writeFile(process.cwd() + "/src/data/checkpoints.json", fileUpdate);
 
-  return NextResponse.json(checkpoint, { status: 201 });
+  return NextResponse.json(newCheckpoint, { status: 201 });
 }

@@ -13,9 +13,8 @@ export async function POST(request: Request) {
   const challengers: TipoChallengersSprints[] = JSON.parse(file);
 
   const novoChallenger: TipoChallengersSprints = await request.json();
-  const novoRm = challengers[challengers.length - 1]?.rm + 1 || 1;
-  novoChallenger.rm = novoRm;
 
+  // Adiciona o novo challenger sem verificar se o RM já existe
   challengers.push(novoChallenger);
 
   const fileUpdate = JSON.stringify(challengers);
