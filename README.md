@@ -61,8 +61,6 @@ Challenger Sprints: Lista os desafios realizados e os resultados.
 Para adicionar uma nova avaliação ou editar uma existente, basta acessar os formulários disponíveis em cada seção.
 
 Estrutura de Pastas
-plaintext
-Copiar código
 meu_portfolio/
 ├── pages/
 │ ├── index.tsx # Página inicial (Dashboard)
