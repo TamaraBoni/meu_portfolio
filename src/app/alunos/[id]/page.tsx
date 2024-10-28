@@ -6,7 +6,7 @@ import { TipoAlunos, TipoCheckpoints, TipoChallengersSprints, TipoGlobalSolution
 import React from "react";
 
 const AlunoDetalhes = ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = React.use(params); //
+  const { id } = React.use(params);
   const [aluno, setAluno] = useState<TipoAlunos | null>(null);
   const [loading, setLoading] = useState(true);
   const [imagePath, setImagePath] = useState(`/images/${id}.png`);
@@ -64,49 +64,58 @@ const AlunoDetalhes = ({ params }: { params: Promise<{ id: string }> }) => {
   if (!aluno) return <div>Aluno não encontrado.</div>;
 
   return (
-    <div className="flex">
-      <div>
-        <h1>{aluno.nome}</h1>
-        <p>Idade: {aluno.idade}</p>
-        <p>Curso: {aluno.curso}</p>
-        <Image src={imagePath} alt={aluno.nome} width={500} height={500} onError={handleImageError} />
+    <div className="flex flex-col items-center p-6 bg-gradient-to-b from-red-500 to-pink-300 min-h-screen">
+      <div className="flex items-center mb-8">
+        <Image src={imagePath} alt={aluno.nome} width={150} height={150} onError={handleImageError} className="rounded-full" />
+        <div className="ml-4 text-center">
+          <h1 className="text-2xl font-bold">{aluno.nome}</h1>
+          <p>Idade: {aluno.idade}</p>
+          <p>Curso: {aluno.curso}</p>
+        </div>
       </div>
-      <div className="ml-8">
-        <h2>Checkpoints</h2>
-        {checkpoints.length > 0 ? (
-          checkpoints.map((checkpoint) => (
-            <div key={`${checkpoint.checkpoint}-${checkpoint.materia}`}>
-              <p>Matéria: {checkpoint.materia}</p>
-              <p>Nota: {checkpoint.nota}</p>
-            </div>
-          ))
-        ) : (
-          <p>Nenhum checkpoint encontrado.</p>
-        )}
 
-        <h2>Challenger Sprints</h2>
-        {challengersSprints.length > 0 ? (
-          challengersSprints.map((sprint) => (
-            <div key={`${sprint.sprint}-${sprint.materia}`}>
-              <p>Matéria: {sprint.materia}</p>
-              <p>Nota: {sprint.nota}</p>
-            </div>
-          ))
-        ) : (
-          <p>Nenhuma sprint encontrada.</p>
-        )}
+      <div className="flex space-x-8">
+        <div className="flex flex-col w-1/3">
+          <h2 className="text-lg font-semibold">Checkpoints</h2>
+          {checkpoints.length > 0 ? (
+            checkpoints.map((checkpoint) => (
+              <div key={`${checkpoint.checkpoint}-${checkpoint.materia}`} className="bg-white p-4 rounded shadow mb-2">
+                <p>Matéria: {checkpoint.materia}</p>
+                <p>Nota: {checkpoint.nota}</p>
+              </div>
+            ))
+          ) : (
+            <p>Nenhum checkpoint encontrado.</p>
+          )}
+        </div>
 
-        <h2>Global Solutions</h2>
-        {globalSolutions.length > 0 ? (
-          globalSolutions.map((gs, index) => (
-            <div key={`${gs.materia}-${index}`}>
-              <p>Matéria: {gs.materia}</p>
-              <p>Nota: {gs.nota}</p>
-            </div>
-          ))
-        ) : (
-          <p>Nenhuma solução global encontrada.</p>
-        )}
+        <div className="flex flex-col w-1/3">
+          <h2 className="text-lg font-semibold">Challenger Sprints</h2>
+          {challengersSprints.length > 0 ? (
+            challengersSprints.map((sprint) => (
+              <div key={`${sprint.sprint}-${sprint.materia}`} className="bg-white p-4 rounded shadow mb-2">
+                <p>Matéria: {sprint.materia}</p>
+                <p>Nota: {sprint.nota}</p>
+              </div>
+            ))
+          ) : (
+            <p>Nenhuma sprint encontrada.</p>
+          )}
+        </div>
+
+        <div className="flex flex-col w-1/3">
+          <h2 className="text-lg font-semibold">Global Solutions</h2>
+          {globalSolutions.length > 0 ? (
+            globalSolutions.map((gs, index) => (
+              <div key={`${gs.materia}-${index}`} className="bg-white p-4 rounded shadow mb-2">
+                <p>Matéria: {gs.materia}</p>
+                <p>Nota: {gs.nota}</p>
+              </div>
+            ))
+          ) : (
+            <p>Nenhuma solução global encontrada.</p>
+          )}
+        </div>
       </div>
     </div>
   );
