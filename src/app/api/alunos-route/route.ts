@@ -2,23 +2,11 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import { TipoAlunos } from "@/types/types";
 
-// Função para obter todos os alunos
 export async function GET() {
   const file = await fs.readFile(process.cwd() + "/src/data/alunos.json", "utf-8");
   const data: TipoAlunos[] = JSON.parse(file);
   return NextResponse.json(data);
 }
-
-// Função para obter um aluno específico por RM
-// export async function GET(request: Request, { params }: { params: { rm: string } }) {
-//   const file = await fs.readFile(process.cwd() + "/src/data/alunos.json", "utf-8");
-//   const data: TipoAlunos[] = JSON.parse(file);
-//   const aluno = data.find((c) => c.rm === Number(params.rm));
-
-//   return NextResponse.json(aluno);
-// }
-
-// Função para atualizar um aluno
 export async function PUT(request: Request, { params }: { params: { rm: string } }) {
   const file = await fs.readFile(process.cwd() + "/src/data/alunos.json", "utf-8");
   const alunos: TipoAlunos[] = JSON.parse(file);
@@ -31,6 +19,7 @@ export async function PUT(request: Request, { params }: { params: { rm: string }
       nome,
       idade,
       curso,
+      id: alunos[indice].id,
     };
 
     alunos.splice(indice, 1, alunoAtualizado);
@@ -43,7 +32,6 @@ export async function PUT(request: Request, { params }: { params: { rm: string }
   }
 }
 
-// Função para excluir um aluno
 export async function DELETE(request: Request, { params }: { params: { rm: string } }) {
   const file = await fs.readFile(process.cwd() + "/src/data/alunos.json", "utf-8");
   const alunos: TipoAlunos[] = JSON.parse(file);
