@@ -41,9 +41,6 @@ export default function Alunos() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-red-500 to-pink-300 p-4 shadow-md">
       <h2 className="text-xl font-semibold text-center text-gray-800 mb-4">Lista de Alunos</h2>
-      <Link href="/alunos/cad-alunos" className="text-white bg-red-500 p-2 rounded hover:bg-red-600 mb-4">
-        Adicionar Aluno
-      </Link>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {lista.map((aluno) => (
           <div
