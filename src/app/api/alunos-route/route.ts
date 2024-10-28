@@ -7,7 +7,7 @@ export async function GET() {
   const data: TipoAlunos[] = JSON.parse(file);
   return NextResponse.json(data);
 }
-export async function PUT(request: Request, { params }: { params: { rm: string } }) {
+export async function PUT(request: Request, { params }: { params: { rm: number } }) {
   const file = await fs.readFile(process.cwd() + "/src/data/alunos.json", "utf-8");
   const alunos: TipoAlunos[] = JSON.parse(file);
   const { nome, idade, curso } = await request.json();
@@ -32,7 +32,7 @@ export async function PUT(request: Request, { params }: { params: { rm: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { rm: string } }) {
+export async function DELETE(request: Request, { params }: { params: { rm: number } }) {
   const file = await fs.readFile(process.cwd() + "/src/data/alunos.json", "utf-8");
   const alunos: TipoAlunos[] = JSON.parse(file);
   const indice = alunos.findIndex((c) => c.rm === Number(params.rm));
