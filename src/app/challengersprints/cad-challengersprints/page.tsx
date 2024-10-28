@@ -1,10 +1,10 @@
 "use client";
+
 import { useState } from "react";
-import { TipoChallengersSprints } from "@/types/types";
 import { useRouter } from "next/navigation";
 
 export default function AdicionarChallengerSprint() {
-  const [rm, setRm] = useState<number>(0); // Adicionado campo RM
+  const [rm, setRm] = useState<number>(0);
   const [nome, setNome] = useState("");
   const [nota, setNota] = useState(0);
   const [materia, setMateria] = useState("");
@@ -14,27 +14,33 @@ export default function AdicionarChallengerSprint() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const novoChallenger: TipoChallengersSprints = {
-      rm, // Utilizando o RM que o usuário informar
+    const novoChallengerSprint = {
+      rm,
       nome,
       nota,
       materia,
       sprint,
     };
 
-    const response = await fetch("http://localhost:3000/api/challengersprints-route", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(novoChallenger),
-    });
+    try {
+      const response = await fetch("http://localhost:3000/api/challengersprints-route", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(novoChallengerSprint),
+      });
 
-    if (response.ok) {
-      alert("Challenger Sprint adicionado com sucesso!");
-      router.push("/challengersprints"); // Redireciona para a página de lista
-    } else {
-      alert("Falha ao adicionar o Challenger Sprint.");
+      if (response.ok) {
+        alert("Challenger Sprint adicionada com sucesso!");
+        router.push("/challengersprints");
+      } else {
+        const errorData = await response.json();
+        alert(`Falha ao adicionar a Challenger Sprint: ${errorData.msg}`);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar dados:", error);
+      alert("Erro ao adicionar a Challenger Sprint. Verifique o console para mais detalhes.");
     }
   };
 

@@ -11,7 +11,7 @@ export default function EditarCheckpoint({ params }: { params: { id: number } })
     nome: "",
     nota: 0,
     materia: "",
-    checkpoint: "",
+    checkpoint: 0,
   });
 
   useEffect(() => {

@@ -16,15 +16,15 @@ export default function ChallengersSprints() {
     chamadaDaApi();
   }, []);
 
-  const handleDelete = async (rm: number) => {
+  const handleDelete = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/challengersprints-route/${rm}`, {
+      const response = await fetch(`http://localhost:3000/api/challengersprints-route/${id}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
         alert("Challenger Sprint excluído com sucesso!");
-        setLista((prevLista) => prevLista.filter((challenger) => challenger.rm !== rm));
+        setLista((prevLista) => prevLista.filter((challenger) => challenger.id !== id));
       }
     } catch (error) {
       console.error("Falha na exclusão do challenger sprint: ", error);
@@ -57,11 +57,11 @@ export default function ChallengersSprints() {
               <td className="border p-4">{challenger.materia}</td>
               <td className="border p-4">{challenger.sprint}</td>
               <td className="border p-4">
-                <Link href={`/challengersprints/${challenger.rm}`} className="text-blue-600 hover:underline">
+                <Link href={`/challengersprints/${challenger.id}`} className="text-blue-600 hover:underline">
                   Editar
                 </Link>{" "}
                 |
-                <Link href="#" onClick={() => handleDelete(challenger.rm)} className="text-red-600 hover:underline">
+                <Link href="#" onClick={() => handleDelete(challenger.id)} className="text-red-600 hover:underline">
                   Excluir
                 </Link>
               </td>
