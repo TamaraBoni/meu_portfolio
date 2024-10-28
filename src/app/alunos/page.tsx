@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Alunos() {
   const [lista, setLista] = useState<TipoAlunos[]>([]);
-  const [imageSources, setImageSources] = useState<{ [key: number]: string }>({}); // Estado para armazenar as fontes das imagens
+  const [imageSources, setImageSources] = useState<{ [key: number]: string }>({});
 
   useEffect(() => {
     const chamadaDaApi = async () => {
@@ -18,10 +18,9 @@ export default function Alunos() {
         const dados = await response.json();
         setLista(dados);
 
-        // Inicializa as fontes das imagens para cada aluno
         const initialImageSources: { [key: number]: string } = {};
         dados.forEach((aluno: TipoAlunos) => {
-          initialImageSources[aluno.rm] = `/images/${aluno.rm}.png`; // Começa com a imagem PNG
+          initialImageSources[aluno.rm] = `/images/${aluno.rm}.png`;
         });
         setImageSources(initialImageSources);
       } catch (error) {
@@ -33,54 +32,46 @@ export default function Alunos() {
   }, []);
 
   const handleImageError = (rm: number) => {
-    // Tenta mudar para a imagem JPG caso a PNG não carregue
     setImageSources((prev) => ({
       ...prev,
-      [rm]: `/images/${rm}.jpg`, // Troca a fonte para JPG
+      [rm]: `/images/${rm}.jpg`,
     }));
   };
 
   return (
     <div className="content-wrap">
-      <h2>Lista de Alunos</h2>
-      <table className="tabelaAlunos">
-        <thead>
-          <tr>
-            <th>RM</th>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Curso</th>
-            <th>Imagem</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {lista.map((aluno) => (
-            <tr key={aluno.rm}>
-              <td>{aluno.rm}</td>
-              <td>{aluno.nome}</td>
-              <td>{aluno.idade}</td>
-              <td>{aluno.curso}</td>
-              <td>
-                {imageSources[aluno.rm] ? (
-                  <Image
-                    src={imageSources[aluno.rm]}
-                    alt={aluno.nome}
-                    width={50}
-                    height={50}
-                    onError={() => handleImageError(aluno.rm)} // Chama a função de erro
-                  />
-                ) : (
-                  <span>Imagem não disponível</span> // Mensagem caso a imagem não esteja disponível
-                )}
-              </td>
-              <td>
-                <Link href={`/alunos/${aluno.rm}`}>Editar</Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h2 className="text-center text-2xl font-bold mb-6">Lista de Alunos</h2>
+      {/* Ajuste a estrutura para uma grade */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {lista.map((aluno) => (
+          <div key={aluno.rm} className="flex flex-col items-center border border-gray-200 rounded-lg p-4 shadow-lg">
+            <div className="relative w-40 h-40 mb-3">
+              {" "}
+              {/* Tamanho fixo para melhorar o ajuste */}
+              {imageSources[aluno.rm] ? (
+                <Image
+                  src={imageSources[aluno.rm]}
+                  alt={aluno.nome}
+                  width={160}
+                  height={160}
+                  className="rounded-full object-cover"
+                  onError={() => handleImageError(aluno.rm)}
+                />
+              ) : (
+                <span>Imagem não disponível</span>
+              )}
+            </div>
+            <div className="text-center">
+              <p className="font-semibold">{aluno.nome}</p>
+              <p className="text-gray-600">Idade: {aluno.idade}</p>
+              <p className="text-gray-600">Curso: {aluno.curso}</p>
+              <Link href={`/alunos/${aluno.rm}`} className="text-blue-500 hover:underline mt-2 block">
+                Ver mais
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
