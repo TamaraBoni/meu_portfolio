@@ -32,30 +32,36 @@ export default function ChallengersSprints() {
   };
 
   return (
-    <div className="content-wrap">
-      <h2>Challenger Sprints</h2>
-      <table className="tabelaChallengerSprints">
+    <div className="min-h-screen bg-gradient-to-b from-red-500 to-pink-300 p-4 shadow-md">
+      <h2 className="text-xl font-semibold text-center text-gray-800 mb-4">Challenger Sprints</h2>
+      <Link href="/challengersprints/cad-challengersprints" className="text-white bg-red-500 p-2 rounded hover:bg-red-600 mb-4">
+        Adicionar Challenger Sprint
+      </Link>
+      <table className="w-full border-collapse shadow-md mt-4">
         <thead>
-          <tr>
-            <th>RM</th>
-            <th>NOME</th>
-            <th>NOTA</th>
-            <th>MATERIA</th>
-            <th>SPRINT</th>
-            <th>EDITAR | EXCLUIR</th>
+          <tr className="bg-red-500 text-white">
+            <th className="border p-4">RM</th>
+            <th className="border p-4">NOME</th>
+            <th className="border p-4">NOTA</th>
+            <th className="border p-4">MATÉRIA</th>
+            <th className="border p-4">SPRINT</th>
+            <th className="border p-4">EDITAR | EXCLUIR</th>
           </tr>
         </thead>
         <tbody>
           {lista.map((challenger) => (
-            <tr key={challenger.rm}>
-              <td>{challenger.rm}</td>
-              <td>{challenger.nome}</td>
-              <td>{challenger.nota}</td>
-              <td>{challenger.materia}</td>
-              <td>{challenger.sprint}</td>
-              <td>
-                <Link href={`/challengersprints/${challenger.rm}`}>Editar</Link> |
-                <Link href="#" onClick={() => handleDelete(challenger.rm)}>
+            <tr key={challenger.rm} className="bg-white hover:bg-gray-100">
+              <td className="border p-4">{challenger.rm}</td>
+              <td className="border p-4">{challenger.nome}</td>
+              <td className="border p-4">{challenger.nota}</td>
+              <td className="border p-4">{challenger.materia}</td>
+              <td className="border p-4">{challenger.sprint}</td>
+              <td className="border p-4">
+                <Link href={`/challengersprints/${challenger.rm}`} className="text-blue-600 hover:underline">
+                  Editar
+                </Link>{" "}
+                |
+                <Link href="#" onClick={() => handleDelete(challenger.rm)} className="text-red-600 hover:underline">
                   Excluir
                 </Link>
               </td>
@@ -64,7 +70,9 @@ export default function ChallengersSprints() {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={6}>Quantidade de challengers sprints: {lista.length}</td>
+            <td colSpan={6} className="text-center p-4">
+              Quantidade de challengers sprints: {lista.length}
+            </td>
           </tr>
         </tfoot>
       </table>

@@ -3,10 +3,12 @@ import { TipoGlobalSolution } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function EditarGlobalSolution({ params }: { params: { rm: number } }) {
+export default function EditarGlobalSolution({ params }: { params: { id: number } }) {
+  // 'id' será usado para a edição
   const navigate = useRouter();
   const [solution, setSolution] = useState<TipoGlobalSolution>({
-    rm: 0,
+    id: 0, // Inicializa o id
+    rm: 0, // Inicializa o rm
     nome: "",
     nota: 0,
     materia: "",
@@ -14,12 +16,16 @@ export default function EditarGlobalSolution({ params }: { params: { rm: number 
 
   useEffect(() => {
     const chamadaDaApi = async () => {
-      const response = await fetch(`http://localhost:3000/api/globalsolution-route/${params.rm}`);
-      const dados = await response.json();
-      setSolution(dados);
+      const response = await fetch(`http://localhost:3000/api/globalsolution-route/${params.id}`); // Use o id para buscar a Global Solution
+      if (!response.ok) {
+        console.error("Erro ao buscar Global Solution");
+        return;
+      }
+      const dados: TipoGlobalSolution = await response.json();
+      setSolution(dados); // O objeto inclui rm, id, nome, nota e materia
     };
     chamadaDaApi();
-  }, [params.rm]);
+  }, [params.id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,20 +36,26 @@ export default function EditarGlobalSolution({ params }: { params: { rm: number 
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/api/globalsolution-route/${params.rm}`, {
+      const response = await fetch(`http://localhost:3000/api/globalsolution-route/${solution.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(solution),
+        body: JSON.stringify(solution), // Envia o objeto completo com id e rm
       });
+      console.log("Resposta da API: ", response);
 
       if (response.ok) {
         alert("Global Solution alterado com sucesso");
         navigate.push("/globalsolution");
+      } else {
+        const errorData = await response.json(); // Obter dados de erro
+        console.error("Erro ao alterar: ", errorData); // Log para ver o erro
+        alert("Erro ao alterar: " + errorData.msg || "Erro desconhecido.");
       }
     } catch (error) {
       console.error("Falha ao realizar a alteração: ", error);
+      alert("Erro ao realizar a alteração.");
     }
   };
 
