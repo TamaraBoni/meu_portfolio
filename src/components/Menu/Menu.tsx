@@ -3,21 +3,31 @@ import Link from "next/link";
 export default function Menu() {
   return (
     <nav>
-      <ul>
+      <ul className="flex space-x-4">
         <li>
-          <Link href="/">Home</Link>
+          <Link href="/" className="hover:text-pink-300 transition-colors">
+            Home
+          </Link>
         </li>
         <li>
-          <Link href="/challengersprints">Challengersprints</Link>
+          <Link href="/challengersprints" className="hover:text-pink-300 transition-colors">
+            Challengersprints
+          </Link>
         </li>
         <li>
-          <Link href="/checkpoint">checkpoint</Link>
+          <Link href="/checkpoint" className="hover:text-pink-300 transition-colors">
+            Checkpoint
+          </Link>
         </li>
         <li>
-          <Link href="/globalsolution">globalsolution</Link>
+          <Link href="/globalsolution" className="hover:text-pink-300 transition-colors">
+            Global Solution
+          </Link>
         </li>
         <li>
-          <Link href="/alunos">alunos</Link>
+          <Link href="/alunos" className="hover:text-pink-300 transition-colors">
+            Alunos
+          </Link>
         </li>
       </ul>
     </nav>
