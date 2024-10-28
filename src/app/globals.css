@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-
-    .form{
+@layer components {
+  /* .form{
         @apply max-w-sm mx-auto;
          
         & div{
@@ -59,7 +58,5 @@
             @apply hover:bg-slate-500;
         }
 
-    }
-
-
+    } */
 }
