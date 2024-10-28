@@ -5,7 +5,7 @@ import { TipoGlobalSolution } from "@/types/types";
 export async function GET(request: Request, { params }: { params: { id: number } }) {
   const file = await fs.readFile(process.cwd() + "/src/data/globalsolution.json", "utf-8");
   const data: TipoGlobalSolution[] = JSON.parse(file);
-  const solution = data.find((g) => g.id === Number(params.id)); // Atualizado para usar 'id'
+  const solution = data.find((g) => g.id === Number(params.id));
 
   if (solution) {
     return NextResponse.json(solution);
@@ -19,10 +19,10 @@ export async function PUT(request: Request, { params }: { params: { id: number }
   const solutions: TipoGlobalSolution[] = JSON.parse(file);
 
   const { nome, nota, materia } = await request.json();
-  const index = solutions.findIndex((g) => g.id === Number(params.id)); // Use 'id' para encontrar o índice
+  const index = solutions.findIndex((g) => g.id === Number(params.id));
 
   if (index !== -1) {
-    const updatedSolution = { id: solutions[index].id, rm: solutions[index].rm, nome, nota, materia }; // Mantém o id e rm
+    const updatedSolution = { id: solutions[index].id, rm: solutions[index].rm, nome, nota, materia };
     solutions.splice(index, 1, updatedSolution);
 
     await fs.writeFile(process.cwd() + "/src/data/globalsolution.json", JSON.stringify(solutions));
@@ -36,7 +36,7 @@ export async function DELETE(request: Request, { params }: { params: { id: numbe
   const file = await fs.readFile(process.cwd() + "/src/data/globalsolution.json", "utf-8");
   const solutions: TipoGlobalSolution[] = JSON.parse(file);
 
-  const index = solutions.findIndex((g) => g.id === Number(params.id)); // Atualizado para usar 'id'
+  const index = solutions.findIndex((g) => g.id === Number(params.id));
 
   if (index !== -1) {
     solutions.splice(index, 1);

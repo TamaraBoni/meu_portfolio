@@ -14,10 +14,12 @@ export async function POST(request: Request) {
 
   const novoChallenger: TipoChallengersSprints = await request.json();
 
-  // Adiciona o novo challenger sem verificar se o RM já existe
+  const novoId = challengers.length > 0 ? Math.max(...challengers.map((challenger) => challenger.id)) + 1 : 1;
+  novoChallenger.id = novoId;
+
   challengers.push(novoChallenger);
 
-  const fileUpdate = JSON.stringify(challengers);
+  const fileUpdate = JSON.stringify(challengers, null, 2);
   await fs.writeFile(process.cwd() + "/src/data/challengersprints.json", fileUpdate);
 
   return NextResponse.json(novoChallenger, { status: 201 });
