@@ -95,5 +95,7 @@ Observações
 Para qualquer dúvida sobre a configuração ou o uso do projeto, consulte a documentação do Next.js e a documentação do Tailwind CSS.
 
 Link para o site (Vercel):
-https://meu-portfolio-cvrtskeox-vinibancielas-projects.vercel.app
+https://meu-portfolio-nc0hf3wlo-vinibancielas-projects.vercel.app
 https://vercel.com/vinibancielas-projects/meu-portfolio
+https://meu-portfolio-git-master-vinibancielas-projects.vercel.app/?vercelToolbarCode=1p8dGPWNzYpaYxB
+https://meu-portfolio-nc0hf3wlo-vinibancielas-projects.vercel.app/?vercelToolbarCode=eInVlQQjsdZKm_i
