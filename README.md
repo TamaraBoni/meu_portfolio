@@ -93,3 +93,6 @@ Distribuído sob a licença MIT. Consulte LICENSE para mais informações.
 
 Observações
 Para qualquer dúvida sobre a configuração ou o uso do projeto, consulte a documentação do Next.js e a documentação do Tailwind CSS.
+
+Link para Vercel:
+https://vercel.com/vinibancielas-projects/meu-portfolio
